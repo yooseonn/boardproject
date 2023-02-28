@@ -11,8 +11,5 @@ import java.util.Map;
 
 @Mapper
 public interface MemberRepository {
-    public void
 
-
-cc
 }

@@ -1,6 +1,7 @@
 package com.app.boardproject.service;
 
 import com.app.boardproject.dto.Member;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
 
