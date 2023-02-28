@@ -1,19 +1,29 @@
 package com.app.boardproject.serviceImpl;
 
+import com.app.boardproject.dao.CommonDAO;
 import com.app.boardproject.dto.Member;
 import com.app.boardproject.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 @Service("service.memberService")
 public class MemberServiceImpl implements MemberService {
+    @Autowired
+    private CommonDAO dao;
+
 
     @Override
     public void insertMember(Member dto) throws Exception {
         try {
-            if (dto.getEmail().length() != 0 && dto.getEmail2().length() != 0) {
+            System.out.println("ㄹㄹㄹ"+dto.getEmail());
+            if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
                 dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
             }
+
+           // long memberSeq = dao.selectOne("member.memberSeq");
+           // dto.setMemberIdx(memberSeq);
+            dao.insertData("member.insertMember", dto);
 
 
             }

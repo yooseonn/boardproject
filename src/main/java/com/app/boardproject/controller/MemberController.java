@@ -22,7 +22,7 @@ public class MemberController {
     @Autowired
     private MemberService service;
 
-    @RequestMapping(value = "member/write", method = RequestMethod.GET)
+    @RequestMapping(value = "member", method = RequestMethod.GET)
     public String memberForm(Model model) {
         model.addAttribute("mode", "member");
         return "member/join";
