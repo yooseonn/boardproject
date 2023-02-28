@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="member">
+        <insert id="insertMember" parameterType="Long">
+            INSERT INTO member(memberIdx, membership) VALUES (#{memberIdx}, 1)
+        </insert>
+
+        <insert id="insertmember1"  parameterType="com.app.boardproject.dto.Member">
+            INSERT INTO member1(memberIdx, userId, userName, userPwd, email)
+            VALUES (#{memberIdx}, #{userId}, #{userName}, #{userPwd}, #{email})
+        </insert>
+</mapper>
+
