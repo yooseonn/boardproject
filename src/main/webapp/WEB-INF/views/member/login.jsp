@@ -17,6 +17,7 @@
 </style>
 
 <script type="text/javascript">
+
   function sendLogin() {
     const f = document.loginForm;
     let str;
@@ -33,6 +34,8 @@
     }
     f.action = "${pageContext.request.contextPath}/member/login";
     f.submit();
+
+
   }
 </script>
 
@@ -42,7 +45,7 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
         <div class="p-3">
-          <form name="loginForm" action="" method="post" class="row g-3" style="width: 400px; margin: auto;">
+          <form name ="loginForm" method="post" class="row g-3" style="width: 400px; margin: auto;">
             <h3 class="fw-semibold">로그인</h3>
             <div class="col-12">
               <label class="mb-1 fs-6">아이디</label>

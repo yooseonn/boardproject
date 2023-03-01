@@ -1,25 +1,24 @@
 package com.app.boardproject.controller;
 
+import com.app.boardproject.domain.Board;
 import com.app.boardproject.domain.SessionInfo;
 import com.app.boardproject.service.BoardService;
-import org.eclipse.jdt.internal.compiler.apt.util.EclipseFileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.servlet.http.HttpSession;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.io.File;
+
 
 @Controller
 @RequestMapping("/board/*")
 
 public class BoardController {
-
     @Autowired
     private BoardService service;
 
@@ -33,28 +32,34 @@ public class BoardController {
     }
 
     @RequestMapping(value = "write", method = RequestMethod.POST)
-    public String writeSubmit(Model model) throws Exception {
+    public String writeSubmit(Board dto, HttpSession session) throws Exception {
+            SessionInfo info = (SessionInfo) session.getAttribute("member");
 
-        model.addAttribute("mode", "write");
+        try {
+            String root = session.getServletContext().getRealPath("/");
+            String pathname = root + "uploads" + File.separator + "board";
+
+            dto.setUserId (info.getUserId());
+
+            service.insertBoard(dto);
+        } catch (Exception e) {
+        }
 
         return "redirect:/board/list";
-
     }
 
-    @RequestMapping(value = "article")
-    public String article(@RequestParam long num,
-                          @RequestParam String page,
-                          @RequestParam(defaultValue = "all") String condition,
-                          @RequestParam(defaultValue = "") String keyword,
-                          HttpSession session,
-                          Model model) throws Exception {
-        SessionInfo info = (SessionInfo) session.getAttribute("member");
-        keyword = URLDecoder.decode(keyword, "utf-8");
 
-        if (info == null) {
-            return "redirect:/member/login";
-        }
+
+    @RequestMapping(value = "article")
+    public String article (Model model) throws Exception {
 
         return "board/article";
     }
+
+    @RequestMapping(value = "list")
+    public String list (Model model) throws Exception {
+
+        return "board/list";
+    }
+
 }

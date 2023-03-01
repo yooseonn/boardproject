@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,17 +21,6 @@ import java.util.Map;
 public class MemberController {
     @Autowired
     private MemberService service;
-
-    @GetMapping("hello")
-    public String hello(){
-    return"Hello World!";
-    }
-    @GetMapping("test")
-    public String test() {
-        List<Member> list = service.memberList();
-        return "member/home";
-
-    }
 
     @RequestMapping(value = "member", method = RequestMethod.GET)
     public String memberForm(Model model) {
@@ -80,13 +70,26 @@ public class MemberController {
         if (message == null || message.length() == 0) // F5를 누른 경우
             return "redirect:/";
 
-        return "/member/complete";
+        return "member/complete";
     }
 
-    @RequestMapping(value = "login")
+    @RequestMapping(value = "login" , method = RequestMethod.GET)
     public String loginForm() {
-        return "/member/login";
+        return "member/login";
 
+    }
+
+    @RequestMapping(value = "login" , method = RequestMethod.POST)
+    public String login(@ModelAttribute Member dto,
+                        HttpSession session) {
+        boolean loginResult = service.login(dto);
+        if (loginResult) {
+            session.setAttribute("userId", dto.getUserId());
+            System.out.println(dto.getUserId());
+            return "home";
+        } else {
+            return "member/login";
+        }
     }
 
     @RequestMapping(value ="/member/userIdCheck", method = RequestMethod.POST)

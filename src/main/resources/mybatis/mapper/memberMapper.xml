@@ -5,12 +5,16 @@
 <mapper namespace="com.app.boardproject.mapper.MemberMapper">
 
     <select id="memberList" resultType="com.app.boardproject.domain.Member">
-        SELECT * FROM member;
+        SELECT * FROM member
     </select>
 
     <insert id="insertMember" parameterType="com.app.boardproject.domain.Member">
         INSERT INTO member(userIdx, userId, userName, userPwd, email, membership)
         VALUES (null, #{userId}, #{userName}, #{userPwd}, #{email}, 1)
     </insert>
+
+    <select id="login" resultType="com.app.boardproject.domain.Member">
+        SELECT * FROM member where userId = #{userId} and userPwd = #{userPwd}
+    </select>
 
 </mapper>

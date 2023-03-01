@@ -12,7 +12,7 @@ public interface MemberService {
 
     public void deleteMember(Map<String, Object> map) throws Exception; //회원탈퇴
 
-    public Member loginMember(String userId);
+    public boolean login(Member dto);
 
     public Member readMember(String userId);
 

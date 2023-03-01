@@ -10,5 +10,7 @@ public interface MemberMapper {
     public List<Member> memberList();
     public int insertMember(Member dto);
 
+    public Member login(Member dto);
 
 }
+

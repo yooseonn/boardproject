@@ -23,7 +23,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void insertMember(Member dto) throws Exception {
         try {
-            System.out.println("ㄹㄹㄹ"+dto.getEmail());
             if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
                 dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
             }
@@ -31,16 +30,13 @@ public class MemberServiceImpl implements MemberService {
             memberMapper.insertMember(dto);
 
 
-
-            }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-        @Override
+    @Override
     public void updateMember(Member dto) throws Exception {
         try {
             if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
@@ -48,10 +44,9 @@ public class MemberServiceImpl implements MemberService {
 
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
-
 
 
         }
@@ -64,10 +59,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member loginMember(String userId) {
-        return null;
+    public boolean login(Member dto) {
+        Member loginMember = memberMapper.login(dto);
+        if (loginMember != null) {
+            return true;
+        } else {
+        return false;
     }
 
+}
     @Override
     public Member readMember(String userId) {
         return null;

@@ -41,12 +41,12 @@ public class Member {
         this.userName = userName;
     }
 
-    public String getUserpwd() {
+    public String getUserPwd() {
         return userPwd;
     }
 
-    public void setUserpwd(String userpwd) {
-        this.userPwd = userpwd;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
     public String getEmail() {
