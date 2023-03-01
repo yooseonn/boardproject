@@ -109,7 +109,7 @@ function deleteFile(fileNum) {
 		<h3 class="fw-semibold">게시글 작성</h3>
 		<hr>
 
-		<form name="localCommForm" method="post" enctype="multipart/form-data">
+		<form name="BoardForm" method="post" enctype="multipart/form-data">
 			<table class="table">
 				<tbody>
 					<tr>

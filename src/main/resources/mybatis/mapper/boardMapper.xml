@@ -4,8 +4,8 @@
 
 <mapper namespace="com.app.boardproject.mapper.BoardMapper">
 
-    <insert id="insertBoard" parameterType="com.app.boardproject.domain.Member">
-        INSERT INTO localComm(num, subject, content,  hitCount, regDate, userId)
+    <insert id="insertBoard" parameterType="com.app.boardproject.domain.Board">
+        INSERT INTO Board(num, subject, content,  hitCount, regDate, userId)
         VALUES (#{num},  #{subject},  #{content} ,#{hitCount}, SYSDATE, #{userId})
     </insert>
 
