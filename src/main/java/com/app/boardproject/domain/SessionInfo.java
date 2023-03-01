@@ -1,17 +1,17 @@
 package com.app.boardproject.domain;
 
 public class SessionInfo {
-    private long memberIdx;
+    private long userIdx;
     private String userId;
     private String userName;
     private int membership;
 
     public long getMemberIdx() {
-        return memberIdx;
+        return userIdx;
     }
 
-    public void setMemberIdx(long memberIdx) {
-        this.memberIdx = memberIdx;
+    public void setMemberIdx(long userIdx) {
+        this.userIdx = userIdx;
     }
 
     public String getUserId() {

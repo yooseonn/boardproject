@@ -9,7 +9,7 @@
     </select>
 
     <insert id="insertMember" parameterType="com.app.boardproject.domain.Member">
-        INSERT INTO member1(userIdx, userId, userName, userPwd, email, membership)
+        INSERT INTO member(userIdx, userId, userName, userPwd, email, membership)
         VALUES (null, #{userId}, #{userName}, #{userPwd}, #{email}, 1)
     </insert>
 

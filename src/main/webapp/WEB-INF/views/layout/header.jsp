@@ -14,7 +14,7 @@
          <li> <a class="navbar-brand" href=""<li><a class="navbar-brand" href="${pageContext.request.contextPath}/" style="padding-left: 0px"><img id="img-logo" src="${pageContext.request.contextPath}/resources/images/logo_color.png"></a></li>
        </ul>
        <ul class="main-menu">
-         <li><a href="${pageContext.request.contextPath}/login/main" class="main-menu-a">로그인</a></li>
+         <li><a href="${pageContext.request.contextPath}/member/login" class="main-menu-a">로그인</a></li>
          <li><a href="${pageContext.request.contextPath}/community/main" class="main-menu-a">커뮤니티</a></li>
               <ul class="sub-menu" style="z-index: 100">
                   <li><a href="${pageContext.request.contextPath}" aria-label="submenu">전체 커뮤니티</a></li>

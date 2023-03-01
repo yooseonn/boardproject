@@ -4,7 +4,7 @@ public class Member {
     private int membership;
     private String userId;
     private String userName;
-    private String userpwd;
+    private String userPwd;
     private String email;
     private String email1;
     private String email2;
@@ -42,11 +42,11 @@ public class Member {
     }
 
     public String getUserpwd() {
-        return userpwd;
+        return userPwd;
     }
 
     public void setUserpwd(String userpwd) {
-        this.userpwd = userpwd;
+        this.userPwd = userpwd;
     }
 
     public String getEmail() {
