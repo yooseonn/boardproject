@@ -2,19 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.app.boardproject.service.MemberService">
-        <insert id="insertMember" parameterType="Long">
-            INSERT INTO membership(memberIdx, membership) VALUES (#{memberIdx}, 1)
-        </insert>
+<mapper namespace="com.app.boardproject.mapper.MemberMapper">
 
-        <insert id="insertMember1"  parameterType="com.app.boardproject.dto.Member">
-            INSERT INTO member1(memberIdx, userId, userName, userPwd, email)
-            VALUES (#{memberIdx}, #{userId}, #{userName}, #{userPwd}, #{email})
-        </insert>
+    <select id="memberList" resultType="com.app.boardproject.domain.Member">
+        SELECT * FROM member;
+    </select>
 
-       <select id="memberSeq" resultType="Long">
-         SELECT get_seq ('member_seq')
-       </select>
+    <insert id="insertMember" parameterType="com.app.boardproject.domain.Member">
+        INSERT INTO member1(userIdx, userId, userName, userPwd, email, membership)
+        VALUES (null, #{userId}, #{userName}, #{userPwd}, #{email}, 1)
+    </insert>
 
 </mapper>
-

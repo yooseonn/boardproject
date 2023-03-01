@@ -1,17 +1,17 @@
-package com.app.boardproject.serviceImpl;
+package com.app.boardproject.service;
 
-import com.app.boardproject.dao.CommonDAO;
-import com.app.boardproject.dto.Member;
+import com.app.boardproject.mapper.MemberMapper;
+import com.app.boardproject.domain.Member;
 import com.app.boardproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
-@Service("service.memberService")
+@Service
 public class MemberServiceImpl implements MemberService {
     @Autowired
-    private CommonDAO dao;
-
+    private MemberMapper memberMapper;
 
     @Override
     public void insertMember(Member dto) throws Exception {
@@ -21,9 +21,8 @@ public class MemberServiceImpl implements MemberService {
                 dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
             }
 
-           // long memberSeq = dao.selectOne("member.memberSeq");
-           // dto.setMemberIdx(memberSeq);
-            dao.insertData("member.insertMember", dto);
+            memberMapper.insertMember(dto);
+
 
 
             }
@@ -41,18 +40,7 @@ public class MemberServiceImpl implements MemberService {
                 dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
 
             }
-         /*
-            boolean bPwdUpdate = !isPasswordCheck(dto.getUserId(), dto.getUserpwd());
-            if (bPwdUpdate) {
-                String encPassword = brcypt.encode(dto.getUserpwd());
-                dto.setUserpwd(encPassword);
 
-                dao.updateData("member.updateMember1", dto);
-
-            }
-
-                dao.updateData("member.updateMember2", dto);
-            */
         } catch (Exception e){
             e.printStackTrace();
             throw e;
@@ -91,5 +79,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void updatePwd(Member dto) throws Exception {
 
+    }
+
+    @Override
+    public List<Member> memberList() {
+        return memberMapper.memberList();
     }
 }

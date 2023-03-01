@@ -1,4 +1,4 @@
-package com.app.boardproject.dto;
+package com.app.boardproject.domain;
 
 public class SessionInfo {
     private long memberIdx;

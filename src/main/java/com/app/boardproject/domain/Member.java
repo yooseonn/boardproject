@@ -1,6 +1,6 @@
-package com.app.boardproject.dto;
+package com.app.boardproject.domain;
 public class Member {
-    private long memberIdx;
+    private long userIdx;
     private int membership;
     private String userId;
     private String userName;
@@ -10,11 +10,11 @@ public class Member {
     private String email2;
 
     public long getMemberIdx() {
-        return memberIdx;
+        return userIdx;
     }
 
     public void setMemberIdx(long memberIdx) {
-        this.memberIdx = memberIdx;
+        this.userIdx = memberIdx;
     }
 
     public int getMembership() {

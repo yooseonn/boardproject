@@ -1,8 +1,8 @@
 package com.app.boardproject.service;
 
-import com.app.boardproject.dto.Member;
-import org.apache.ibatis.annotations.Mapper;
+import com.app.boardproject.domain.Member;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MemberService {
@@ -19,6 +19,8 @@ public interface MemberService {
     public boolean isPasswordCheck(String userId, String userPwd);
     public void updatePwd(Member dto) throws Exception;
 
+    public List<Member> memberList();
+
+    }
 
 
-}

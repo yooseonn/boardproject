@@ -1,7 +1,6 @@
 package com.app.boardproject.controller;
 
-import com.app.boardproject.dto.Member;
-import com.app.boardproject.dto.SessionInfo;
+import com.app.boardproject.domain.Member;
 import com.app.boardproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,16 +10,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@Controller("member.memberController")
+@Controller
 @RequestMapping(value = "/member/*")
 
 public class MemberController {
     @Autowired
     private MemberService service;
+
+    @GetMapping("hello")
+    public String hello(){
+    return"Hello World!";
+    }
+    @GetMapping("test")
+    public String test() {
+        List<Member> list = service.memberList();
+        return "member/home";
+
+    }
 
     @RequestMapping(value = "member", method = RequestMethod.GET)
     public String memberForm(Model model) {
