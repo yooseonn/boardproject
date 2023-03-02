@@ -6,7 +6,11 @@
 
     <insert id="insertBoard" parameterType="com.app.boardproject.domain.Board">
         INSERT INTO Board(num, subject, content,  hitCount, regDate, userId)
-        VALUES (#{num},  #{subject},  #{content} ,#{hitCount}, SYSDATE, #{userId})
+        VALUES (null,  #{subject},  #{content} ,#{hitCount}, now() , #{userId})
     </insert>
+
+    <select id="ReadBoard" resultType="com.app.boardproject.domain.Board">
+        SELECT * FROM Board
+    </select>
 
 </mapper>

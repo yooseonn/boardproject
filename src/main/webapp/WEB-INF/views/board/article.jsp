@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -25,7 +27,7 @@
   font-size: 15px;
   color: ##BDBDBD; }
 
-.localCommTitle {
+.title {
 	color:#36C88A;
 	font-weight: bold;
 }
@@ -180,7 +182,7 @@ $(function(){
 // 게시글 공감 여부
 $(function(){
 	$(".btnSendLocalLike").click(function(){
-		if(!'${sessionScope.member.userId}') {
+		if(!'${sessionScope.loginMember.userId}') {
 			alert("공감은 회원만 가능합니다.");
 			return false;
 		}
@@ -189,7 +191,7 @@ $(function(){
 		const $i = $(this).find("i");
 		let like = $i.hasClass("bi-heart-fill");
 
-		let url = "${pageContext.request.contextPath}/localComm/insertLocalCommLike";
+		let url = "${pageContext.request.contextPath}/board/insertBoardLike";
 		let num = "${dto.num}";
 		let query = "num=" + num + "&like=" + like;
 
@@ -221,11 +223,9 @@ $(function(){
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3 class="localCommTitle"> 지역별 게시판 </h3>
+			<h3 class="title"> 게시판 </h3>
 		</div>
 
-		<div class="category-title">
-		  ${dto.siguName} >  ${dto.dongName} </div>
 		<div class="body-main">
  			<hr style="border: 0; height: 2px; background: black; margin-bottom: 0px;">
 			<table class="table mb-0">
@@ -252,27 +252,18 @@ $(function(){
 							${dto.content}
 						</td>
 					</tr>
-					<c:forEach var="vo" items="${listFile}">
-						<tr>
-							<td colspan="2">
-								파&nbsp;&nbsp;일 :
-								<a href="${pageContext.request.contextPath}/localComm/download?fileNum=${vo.fileNum}" style="color: black;">${vo.originalFilename}</a>
-								(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> kb)
-							</td>
-						</tr>
-					</c:forEach>
 					<tr>
 						<td colspan="2" class="text-center p-3">
 							 <button type="button" class="btn btnSendLocalLike" title="좋아요" style="border-color: #A3A6AD">
-							 	<i class="bi ${userLocalCommLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userLocalCommLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
-							 	<span id="localCommLikeCount" style="color: #A3A6AD">${likeCount}</span>
+							 	<i class="bi ${userBoardLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userLocalCommLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
+							 	<span id="BoardLikeCount" style="color: #A3A6AD">${likeCount}</span>
 							 </button>
 						</td>
 					<tr>
 						<td colspan="2" >
 							이전글 :
 							<c:if test="${not empty preReadDto}">
-								<a class="readDto" href="${pageContext.request.contextPath}/localComm/article?${query}&num=${preReadDto.num}" >${preReadDto.subject}</a>
+								<a class="readDto" href="${pageContext.request.contextPath}/board/article?${query}&num=${preReadDto.num}" >${preReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -280,7 +271,7 @@ $(function(){
 						<td colspan="2" style="text-decoration: none;">
 							다음글 :
 							<c:if test="${not empty nextReadDto}">
-								<a class="readDto" href="${pageContext.request.contextPath}/localComm/article?${query}&num=${nextReadDto.num}" >${nextReadDto.subject}</a>
+								<a class="readDto" href="${pageContext.request.contextPath}/board/article?${query}&num=${nextReadDto.num}" >${nextReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -291,26 +282,15 @@ $(function(){
 				<tr>
 					<td width="50%">
 
-						<c:choose>
-							<c:when test="${sessionScope.member.userId==dto.userId}">
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/localComm/update?num=${dto.num}&page=${page}&size=${size}';">수정</button>
+							<c:when test="${sessionScope.loginMember.userId==dto.userId}">
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/board/update?num=${dto.num}&page=${page}&size=${size}';">수정</button>
 							</c:when>
-							<c:otherwise>
-								<button type="button" class="btn btn-light" disabled="disabled">수정</button>
-							</c:otherwise>
-						</c:choose>
 
-						<c:choose>
-				    		<c:when test="${sessionScope.member.userId==dto.userId}">
 				    			<button type="button" class="btn btn-light" onclick="deleteOk(${dto.num});">삭제</button>
-				    		</c:when>
-				    		<c:otherwise>
-				    			<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
-				    		</c:otherwise>
-				    	</c:choose>
+
 					</td>
 					<td class="text-end">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/localComm/list?${query}';">목록</button>
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/list?${query}';">목록</button>
 					</td>
 				</tr>
 			</table>

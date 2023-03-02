@@ -59,10 +59,33 @@ public class MemberController {
         return "redirect:/member/complete";
     }
 
-    @RequestMapping(value = "member/update", method = RequestMethod.POST)
-    public String updateSubmit() {
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public String update(Model model, HttpSession session) {
+        model.addAttribute("mode", "update");
+        model.addAttribute("dto", (Member)session.getAttribute("loginMember"));
+        return "member/join";
+
+    }
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public String updateSubmit(Member dto,
+                               final RedirectAttributes reAttr,
+                               Model model) {
+
+        try {
+            service.updateMember(dto);
+        } catch (Exception e) {
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(dto.getUserName() + "님의 회원정보가 정상적으로 변경되었습니다.<br>");
+        sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+
+        reAttr.addFlashAttribute("title", "회원 정보 수정");
+        reAttr.addFlashAttribute("message", sb.toString());
+
         return "redirect:/member/complete";
     }
+
 
     @RequestMapping(value = "member/complete")
     public String complete(@ModelAttribute("message") String message) throws Exception {
@@ -82,10 +105,8 @@ public class MemberController {
     @RequestMapping(value = "login" , method = RequestMethod.POST)
     public String login(@ModelAttribute Member dto,
                         HttpSession session) {
-        boolean loginResult = service.login(dto);
+        boolean loginResult = service.login(dto, session);
         if (loginResult) {
-            session.setAttribute("userId", dto.getUserId());
-            System.out.println(dto.getUserId());
             return "home";
         } else {
             return "member/login";

@@ -1,6 +1,6 @@
 package com.app.boardproject.domain;
 public class Member {
-    private long userIdx;
+    private String userIdx;
     private int membership;
     private String userId;
     private String userName;
@@ -9,12 +9,12 @@ public class Member {
     private String email1;
     private String email2;
 
-    public long getMemberIdx() {
+    public String getUserIdx() {
         return userIdx;
     }
 
-    public void setMemberIdx(long memberIdx) {
-        this.userIdx = memberIdx;
+    public void setUserIdxIdx(String userIdx) {
+        this.userIdx = userIdx;
     }
 
     public int getMembership() {

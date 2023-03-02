@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -36,12 +38,16 @@ element.style {
  border: revert;
  border-radius: 3px;
 }
-
+.fw-semibold {
+	color:#36C88A;
+	font-weight: bold;
+}
 </style>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 
 <script type="text/javascript">
+
 function sendOk() {
+    const f = document.BoardForm;
 	str = f.subject.value.trim();
 	if(!str) {
 		alert("제목을 입력하세요 !");
@@ -49,17 +55,21 @@ function sendOk() {
 		return;
 	}
 
-	str = window.editor.getData().trim();
+	str = f.content.value.trim();
 	if(! str){
 		alert("내용을 입력하세요. ");
-		window.editor.focus();
+		f.content.focus();
 		return;
 	}
 
 	f.content.value = str;
 
-	f.action = "${pageContext.request.contextPath}/board/${mode}";
+	f.action = "/board/${mode}";
+
+
 	f.submit();
+
+	alert("게시글 작성 성공 !! ");
 }
 </script>
 
@@ -120,7 +130,7 @@ function deleteFile(fileNum) {
 					</tr>
 					<tr>
 						<th scope="row" style="width: 300px;">작성자</th>
-						<td>${sessionScope.member.userName}</td>
+						<td>${sessionScope.loginMember.userName}</td>
 					</tr>
 					<tr>
 						<th scope="row">내용</th>
@@ -155,12 +165,10 @@ function deleteFile(fileNum) {
 			<table class="table table-borderless">
 				<tr>
 					<td class="text-center">
-						<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i
-									class="bi bi-check2"></i>
+						<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}&nbsp;
 						</button>
 						<button type="button" class="btn btn-light"
-								onclick="location.href='${pageContext.request.contextPath}/board/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i
-									class="bi bi-x"></i>
+								onclick="location.href='${pageContext.request.contextPath}/board/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;
 						</button>
 
 						<c:if test="${mode=='update'}">

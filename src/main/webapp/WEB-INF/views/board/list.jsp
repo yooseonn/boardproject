@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -129,7 +131,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 <div class="container">
 	<div class="body-container">
 		<div class="table2">
-			<h3 class="title1">게시판 <hr class="division"> </h3>
+			<h3 class="title1">게시판 </h3>
 
 			<hr class="division">
 			<div class="container text-center" id="board" style="margin-left: 28px;">
@@ -141,59 +143,34 @@ function ajaxFun(url, method, query, dataType, fn) {
 							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
 							<th scope="col">조회수</th>
-							<th scope="col">좋아요 수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
+								<th scope="row">${dto.num}</th>
 								<td style=" max-width: 340px; ">
-									<c:if test="${empty sessionScope.member.userId}">
-										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none; max-width: 300px; display: block; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
-											<span style="max-width: 280px;">${dto.subject}</span>
-											<c:if test="${dto.replyCount != 0}">
-												<span style="font-weight: bold; color:#36C88A;"> [${dto.replyCount}]</span>
-											</c:if>
-										</a>
-									</c:if>
-									<c:if test="${not empty sessionScope.member.userId}">
 										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none; max-width: 260px; display: block; ">
 											<span style="max-width: 260px;  display: block; text-overflow: ellipsis; white-space: nowrap; overflow:hidden; float: left;">${dto.subject}</span>
-
 										</a>
-										<c:if test="${dto.replyCount != 0}">
-												<span style=" max-width: 40px; font-weight: bold; color:#36C88A; display: inline; float: left;">&nbsp;&nbsp;[${dto.replyCount}]</span>
-											</c:if>
-									</c:if>
 								</td>
 								<td>${dto.regDate}</td>
-								<td>${dto.userName}</td>
+								<td>${dto.userId}</td>
 								<td>${dto.hitCount}</td>
-								<td>${dto.likeCount}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 
-			<c:choose>
-				<c:when test="${sessionScope.member.userId ne null}">
+
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/board/write';" style="margin-left: 740px;">글 작성</button>
-				</c:when>
-				<c:otherwise>
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login';" style="margin-left: 740px;">글 작성</button>
-				</c:otherwise>
-			</c:choose>
+
+
 
 
 
 			<br>
-
-			<div class="page-navigation">
-				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
-			</div>
-
 
 
 			<div class="search">

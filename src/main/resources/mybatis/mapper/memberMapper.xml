@@ -17,4 +17,18 @@
         SELECT * FROM member where userId = #{userId} and userPwd = #{userPwd}
     </select>
 
+    <select id="selectOne" resultType="com.app.boardproject.domain.Member">
+        SELECT * FROM member where userId = #{userId}
+    </select>
+
+    <update id="updateMember" parameterType="com.app.boardproject.domain.Member">
+        UPDATE member SET userPwd = #{userPwd}, email = #{email} where userId = #{userId}
+    </update>
+
+    <select id="selectId" resultType="com.app.boardproject.domain.Member">
+        SELECT userId FROM member where userId = #{userId}
+    </select>
+
+
+
 </mapper>

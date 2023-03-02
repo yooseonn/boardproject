@@ -2,6 +2,7 @@ package com.app.boardproject.service;
 
 import com.app.boardproject.domain.Member;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +13,9 @@ public interface MemberService {
 
     public void deleteMember(Map<String, Object> map) throws Exception; //회원탈퇴
 
-    public boolean login(Member dto);
+    public boolean login(Member dto, HttpSession session);
 
     public Member readMember(String userId);
-
-    public Member readMember(long memberIdx);
 
     public boolean isPasswordCheck(String userId, String userPwd);
 

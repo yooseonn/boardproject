@@ -3,8 +3,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <style type="text/css">
 
 .main-menu {
@@ -52,11 +50,11 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
                <a href="${pageContext.request.contextPath}/member/member">회원가입</a>
           </c:if>
           <c:if test="${not empty sessionScope.member}">
-               <span style="color:blue;">${sessionScope.member.userName}</span>님
+               <span style="color:blue;">${sessionScope.loginMember.userName}</span>님
                    &nbsp;|&nbsp;
                <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
                    &nbsp;|&nbsp;
-               <a href="${pageContext.request.contextPath}/member/">정보수정</a>
+               <a href="${pageContext.request.contextPath}/member/update">정보수정</a>
           </c:if>
        </div>
    </nav>

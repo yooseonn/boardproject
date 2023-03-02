@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -16,6 +18,7 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberMapper memberMapper;
     private SqlSession sqlSession;
+    private MemberService memberService;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -43,6 +46,8 @@ public class MemberServiceImpl implements MemberService {
                 dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
 
             }
+            int n = memberMapper.updateMember(dto);
+            System.out.println(n+"n");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,9 +64,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean login(Member dto) {
+    public boolean login(Member dto, HttpSession session) {
+
         Member loginMember = memberMapper.login(dto);
+
         if (loginMember != null) {
+            session.setAttribute("loginMember",loginMember);
             return true;
         } else {
         return false;
@@ -70,13 +78,9 @@ public class MemberServiceImpl implements MemberService {
 }
     @Override
     public Member readMember(String userId) {
-        return null;
+        return memberMapper.selectOne(userId);
     }
 
-    @Override
-    public Member readMember(long memberIdx) {
-        return null;
-    }
 
     @Override
     public boolean isPasswordCheck(String userId, String userPwd) {
