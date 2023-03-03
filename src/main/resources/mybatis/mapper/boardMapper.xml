@@ -9,8 +9,53 @@
         VALUES (null,  #{subject},  #{content} ,#{hitCount}, now() , #{userId})
     </insert>
 
-    <select id="ReadBoard" resultType="com.app.boardproject.domain.Board">
+    <!-- 글 리스트-->
+    <select id="listBoard" resultType="com.app.boardproject.domain.Board">
         SELECT * FROM Board
     </select>
+
+    <!-- 글보기 -->
+    <select id="readBoard" resultType="com.app.boardproject.domain.Board">
+      SELECT * FROM Board WHERE num = #{num}
+
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="updateHitCount" parameterType="com.app.boardproject.domain.Board">
+        UPDATE Board SET hitCount=hitCount+1 WHERE num = #{num}
+    </update>
+
+    <!-- 이전글 -->
+    <select id="preReadBoard" parameterType="map" resultType="com.app.boardproject.domain.Board">
+        SELECT num, subject
+        FROM board b
+        JOIN member m ON b.userId=m.userId
+        <where>
+            <if test="keyword != null and keyword != '' ">
+                <include refid="where-list"/>
+            </if>
+            AND (num &gt; #{num})
+        </where>
+        ORDER BY num ASC
+        FETCH FIRST 1 ROWS ONLY
+    </select>
+
+    <select id="nextReadBoard" parameterType="map" resultType="com.app.boardproject.domain.Board">
+        SELECT num, subject
+        FROM board b
+        JOIN member m ON b.userId=m.userId
+        <where>
+            <if test="keyword != null and keyword != '' ">
+                <include refid="where-list"/>
+            </if>
+            AND (num &lt; #{num})
+        </where>
+        ORDER BY num DESC
+        FETCH FIRST 1 ROWS ONLY
+    </select>
+
+
+
+
 
 </mapper>

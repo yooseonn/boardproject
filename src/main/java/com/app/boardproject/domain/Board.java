@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public class Board {
-    private String num;
+    private long num;
     private String userId;
     private String userName;
 
@@ -17,6 +17,11 @@ public class Board {
     private int hitCount;
 
     private int likeCount;
+
+    //글좋아요 수
+    private int BoardLikeCount;
+    //답변 수
+    private int replyCount;
 
     public String getUserId() {
         return userId;
@@ -132,11 +137,12 @@ public class Board {
     // 파일받기
     private List<MultipartFile> selectFile;
 
-    public String getNum() {
+    public long getNum() {
         return num;
     }
 
-    public void setNum(String num) {
+
+    public void setNum(long num) {
         this.num = num;
     }
 }

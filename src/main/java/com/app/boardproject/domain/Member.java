@@ -13,7 +13,7 @@ public class Member {
         return userIdx;
     }
 
-    public void setUserIdxIdx(String userIdx) {
+    public void setUserIdx(String userIdx) {
         this.userIdx = userIdx;
     }
 

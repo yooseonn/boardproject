@@ -42,7 +42,7 @@
 
         str = f.userPwd.value;
         if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) {
-            alert("패스워드를 다시 입력 하세요. ");
+            alert("패스워드는 하나 이상의 숫자와 문자가 포함되어야 합니다. ");
             f.userPwd.focus();
             return;
         }

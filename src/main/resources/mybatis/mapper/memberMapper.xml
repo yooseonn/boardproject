@@ -8,9 +8,9 @@
         SELECT * FROM member
     </select>
 
-    <insert id="insertMember" parameterType="com.app.boardproject.domain.Member">
-        INSERT INTO member(userIdx, userId, userName, userPwd, email, membership)
-        VALUES (null, #{userId}, #{userName}, #{userPwd}, #{email}, 1)
+    <insert id="insertMember" parameterType="com.app.boardproject.domain.Member" useGeneratedKeys="true" keyProperty="userIdx">
+        INSERT INTO member(userId, userName, userPwd, email, membership)
+        VALUES (#{userId}, #{userName}, #{userPwd}, #{email}, 1)
     </insert>
 
     <select id="login" resultType="com.app.boardproject.domain.Member">
