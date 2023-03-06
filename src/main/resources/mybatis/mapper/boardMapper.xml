@@ -27,31 +27,9 @@
 
     <!-- 이전글 -->
     <select id="preReadBoard" parameterType="map" resultType="com.app.boardproject.domain.Board">
-        SELECT num, subject
-        FROM board b
-        JOIN member m ON b.userId=m.userId
-        <where>
-            <if test="keyword != null and keyword != '' ">
-                <include refid="where-list"/>
-            </if>
-            AND (num &gt; #{num})
-        </where>
-        ORDER BY num ASC
-        FETCH FIRST 1 ROWS ONLY
     </select>
 
     <select id="nextReadBoard" parameterType="map" resultType="com.app.boardproject.domain.Board">
-        SELECT num, subject
-        FROM board b
-        JOIN member m ON b.userId=m.userId
-        <where>
-            <if test="keyword != null and keyword != '' ">
-                <include refid="where-list"/>
-            </if>
-            AND (num &lt; #{num})
-        </where>
-        ORDER BY num DESC
-        FETCH FIRST 1 ROWS ONLY
     </select>
 
 
