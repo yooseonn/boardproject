@@ -1,13 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-<style type="text/css">
 
+<style type="text/css">
+    @font-face {
+        font-family: 'menuFont';
+        scr  : url(esanmaru Medium.ttf)
+    }
+
+    }
 .main-menu {
 	float: center;
 	position: relative;
+    font-family: 'menuFont';
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    z-index: 2;
 }
 .main-menu-a { padding-bottom: 20px; }
 .main-menu-a {
@@ -17,7 +35,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 }
 .main-menu > li > a:hover { color: #36C88A; }
 
-.login-menu { font-size: 12px; font-weight: 500px; padding-right: 10%; cursor: pointer; }
+.login-menu { font-size: 15px; font-weight: 500px; padding-right: 10%; cursor: pointer; }
 .login-menu-a { text-decoration: none; color: #000; }
 .login-menu-a:hover {
 	color: #36C88A;
@@ -40,17 +58,17 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
        </p>
    </div>
    <div class="main-menu">
-      <a href="${pageContext.request.contextPath}/board/list" class="main-menu-a">게시판</a>
-    </div>
+
+      <a href="${pageContext.request.contextPath}/board/list" class="main-menu-a"><i class="fa-solid fa-circle-user"></i>게시판</i>
    <div class="login-menu">
        <div style="padding-top: 20px;  float: right;">
-          <c:if test="${empty sessionScope.member}">
+          <c:if test="${empty sessionScope.loginMember}">
               <a href="${pageContext.request.contextPath}/member/login">로그인</a>
                    &nbsp;|&nbsp;
                <a href="${pageContext.request.contextPath}/member/member">회원가입</a>
           </c:if>
-          <c:if test="${not empty sessionScope.member}">
-               <span style="color:blue;">${sessionScope.loginMember.userName}</span>님
+          <c:if test="${not empty sessionScope.loginMember}">
+               <span style="color:blue;"><i class="fa-solid fa-user"></i>${sessionScope.loginMember.userName}</span>님 안녕하세요!
                    &nbsp;|&nbsp;
                <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
                    &nbsp;|&nbsp;

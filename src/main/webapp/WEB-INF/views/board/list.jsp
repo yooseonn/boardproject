@@ -140,8 +140,8 @@ function ajaxFun(url, method, query, dataType, fn) {
 						<tr>
 							<th scope="col">번호</th>
 							<th scope="col" style=" max-width: 300px;" >제목</th>
-							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
+							<th scope="col">작성일</th>
 							<th scope="col">조회수</th>
 						</tr>
 					</thead>
@@ -154,8 +154,8 @@ function ajaxFun(url, method, query, dataType, fn) {
 											<span style="max-width: 260px;  display: block; text-overflow: ellipsis; white-space: nowrap; overflow:hidden; float: left;">${dto.subject}</span>
 										</a>
 								</td>
-								<td>${dto.regDate}</td>
 								<td>${dto.userId}</td>
+								<td>${dto.regDate}</td>
 								<td>${dto.hitCount}</td>
 							</tr>
 						</c:forEach>

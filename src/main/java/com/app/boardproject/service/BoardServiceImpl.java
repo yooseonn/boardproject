@@ -25,9 +25,14 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int dataCount(Map<String, Object> map) {
-        return 0;
-    }
-
+        try {
+            boardMapper.dataCount(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return boardMapper.dataCount(map);
+        }
     @Override
     public List<Board> BoardList() throws Exception {
         try {
@@ -40,15 +45,15 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board readBoard(long num) {
-        try {
-            boardMapper.readBoard(num);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+    public Board readBoard(long num){
+            try {
+                boardMapper.readBoard(num);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            }
+            return boardMapper.readBoard(num);
         }
-        return boardMapper.readBoard(num);
-    }
 
     @Override
     public void updateHitCount(Board dto) throws Exception {

@@ -25,15 +25,8 @@
         UPDATE Board SET hitCount=hitCount+1 WHERE num = #{num}
     </update>
 
-    <!-- 이전글 -->
-    <select id="preReadBoard" parameterType="map" resultType="com.app.boardproject.domain.Board">
-    </select>
-
-    <select id="nextReadBoard" parameterType="map" resultType="com.app.boardproject.domain.Board">
-    </select>
-
-
-
-
+   <select id="dataCount" resultType="int" parameterType="hashMap">
+       SELECT IFNULL(COUNT(*),0)  FROM board b Join member m ON b.userId = m.userId
+   </select>
 
 </mapper>

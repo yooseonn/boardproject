@@ -16,10 +16,24 @@ public class Board {
 
     private int hitCount;
 
-    private int likeCount;
+    public int getBoardlikeCount() {
+        return boardlikeCount;
+    }
 
-    //글좋아요 수
-    private int BoardLikeCount;
+    public void setBoardlikeCount(int boardlikeCount) {
+        this.boardlikeCount = boardlikeCount;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    private int boardlikeCount;
+
     //답변 수
     private int replyCount;
 
@@ -72,11 +86,11 @@ public class Board {
     }
 
     public int getLikeCount() {
-        return likeCount;
+        return boardlikeCount;
     }
 
     public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+        this.boardlikeCount = likeCount;
     }
 
     public long getFileNum() {

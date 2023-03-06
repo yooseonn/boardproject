@@ -70,7 +70,46 @@ public class BoardController {
                        Model model) throws Exception {
         List<Board> list = service.BoardList();
 
-        System.out.println(list);
+        int size=10; //한 화면에 보여주는 게시물 수
+        int total_page=0;
+        int dataCount=0;
+
+        if(req.getMethod().equalsIgnoreCase("GET")) {
+            keyword = URLDecoder.decode(keyword,"utf-8");
+
+        }
+
+        // 전체 페이지
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("condition",condition);
+        map.put("keyword",keyword);
+
+        dataCount = service.dataCount(map);
+
+        String cp = req.getContextPath();
+        String query = "";
+        String listUrl = cp + "/board/list";
+        String articleUrl = cp + "/board/article?page=" + current_page;
+
+        if(keyword.length() != 0){
+            query = "condition" + condition + "&keyword=" + URLDecoder.decode(keyword,"utf-8");
+        }
+
+        if (query.length() != 0) {
+            listUrl = cp + "/localComm/list?" + query;
+            articleUrl = cp + "/localComm/article?page=" + current_page + "&" + query;
+        }
+
+
+        model.addAttribute("list", list);
+        model.addAttribute("page", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("size", size);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("articleUrl", articleUrl);
+
+        model.addAttribute("condition", condition);
+        model.addAttribute("keyword", keyword);
 
         model.addAttribute("list", list);
 
@@ -84,10 +123,10 @@ public class BoardController {
                            @RequestParam (defaultValue = "") String keyword,
                            HttpSession session, Model model) throws Exception {
 
-        SessionInfo info = (SessionInfo) session.getAttribute("member");
+        Member loginMember = (Member) session.getAttribute("loginMember");
         keyword = URLDecoder.decode(keyword, "utf-8");
 
-        if (info == null) {
+        if (session == null) {
             return "redirect:/member/login";
     }
 
@@ -97,7 +136,10 @@ public class BoardController {
     }
 
     //service.updateHitCount(num);
+
+        System.out.println("oo");
     Board dto = service.readBoard(num);
+
     if(dto == null) {
         return "redirect:/board/list?"+query;
 

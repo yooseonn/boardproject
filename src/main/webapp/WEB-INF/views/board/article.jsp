@@ -25,7 +25,7 @@
 
  .category-title {
   font-size: 15px;
-  color: ##BDBDBD; }
+  color: #BDBDBD; }
 
 .title {
 	color:#36C88A;
@@ -73,11 +73,11 @@
 </style>
 
 <script type="text/javascript">
-<c:if test="${sessionScope.member.userId==dto.userId}">
+<c:if test="${sessionScope.loginMembermember.userId==dto.userId}">
 function deleteOk(num) {
     if(confirm("글을 삭제 하시겠습니까 ? ")) {
     	let query = "num="+num+"&page=${page}";
-	    let url = "${pageContext.request.contextPath}/localComm/delete?" + query;
+	    let url = "${pageContext.request.contextPath}/board/delete?" + query;
     	location.href = url;
     }
 }
@@ -110,26 +110,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 		}
 	});
 }
-// 페이징 처리
-$(function(){
-	listPage(1);
-});
-function listPage(page) {
-	let url = "${pageContext.request.contextPath}/localComm/listReply";
-	let query = "num=${dto.num}&pageNo="+page;
-	let selector = "#listReply";
 
-	const fn = function(data){
-		$(selector).html(data);
-
-		$(".articleWriterCircle").each(function(){
-			if($(this).attr("data-userId") == "${dto.userId}") {
-				$(this).css("color", "#36C88A");
-			}
-		});
-	};
-	ajaxFun(url, "get", query, "html", fn);
-}
 $(function(){
 	$(".btnSendReply").click(function(){
 		let num = "${dto.num}";
@@ -141,7 +122,7 @@ $(function(){
 		}
 		content = encodeURIComponent(content);
 
-		let url = "${pageContext.request.contextPath}/localComm/insertReply";
+		let url = "${pageContext.request.contextPath}/board/insertReply";
 		let query = "num="+num+"&content="+content;
 
 		const fn = function(data){
@@ -168,7 +149,7 @@ $(function(){
 		let replyNum = $(this).attr("data-replyNum");
 		let page = $(this).attr("data-pageNo");
 
-		let url = "${pageContext.request.contextPath}/localComm/deleteReply";
+		let url = "${pageContext.request.contextPath}/board/deleteReply";
 		let query = "replyNum=" + replyNum + "&mode=reply";
 
 		const fn = function(data){
@@ -181,7 +162,7 @@ $(function(){
 });
 // 게시글 공감 여부
 $(function(){
-	$(".btnSendLocalLike").click(function(){
+	$(".btnSendBoardlLike").click(function(){
 		if(!'${sessionScope.loginMember.userId}') {
 			alert("공감은 회원만 가능합니다.");
 			return false;
@@ -206,8 +187,8 @@ $(function(){
 					color = "#FF4F99";
 				}
 				$i.css("color", color);
-				let count = data.localCommLikeCount;
-				$("#localCommLikeCount").text(count);
+				let count = data.boardlikeCount;
+				$("#BoardLikeCount").text(count);
 			} else if(state === "liked") {
 				alert("좋아요는 한 번만 가능합니다");
 			} else if(state === "false") {
@@ -240,7 +221,7 @@ $(function(){
 				<tbody>
 					<tr>
 						<td width="50%">
-							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName}
+							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userId}
 						</td>
 						<td colspan="2" width="50%" style="text-align: right;">
 						    <p style="display: inline; color: #696969; ">작성일자 </p><p style="display: inline; font-weight: 500;">${dto.regDate}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline; color: #696969;">조회</p> <p style="display: inline; font-weight: 500;">${dto.hitCount}</p>
@@ -254,9 +235,9 @@ $(function(){
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center p-3">
-							 <button type="button" class="btn btnSendLocalLike" title="좋아요" style="border-color: #A3A6AD">
-							 	<i class="bi ${userBoardLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userLocalCommLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
-							 	<span id="BoardLikeCount" style="color: #A3A6AD">${likeCount}</span>
+							 <button type="button" class="btn btnSendBoardLike" title="좋아요" style="border-color: #A3A6AD">
+							 	<i class="bi ${userBoardLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userBoardLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
+							 	<span id="BoardLikeCount" style="color: #A3A6AD">${boardlikeCount}</span>
 							 </button>
 						</td>
 					<tr>
@@ -282,9 +263,9 @@ $(function(){
 				<tr>
 					<td width="50%">
 
-							<c:when test="${sessionScope.loginMember.userId==dto.userId}">
+							<c:if test="${sessionScope.loginMember.userId==dto.userId}">
 								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/board/update?num=${dto.num}&page=${page}&size=${size}';">수정</button>
-							</c:when>
+							</c:if>
 
 				    			<button type="button" class="btn btn-light" onclick="deleteOk(${dto.num});">삭제</button>
 

@@ -17,10 +17,6 @@ public interface MemberService {
 
     public Member readMember(String userId);
 
-    public boolean isPasswordCheck(String userId, String userPwd);
-
-    public void updatePwd(Member dto) throws Exception;
-
     public List<Member> memberList();
 
     public <T> T selectOne (String userId,Object value) throws Exception;

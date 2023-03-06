@@ -10,15 +10,21 @@
 
 <style type="text/css">
 .footer-div {
- margin : 300px;
-</style
+  margin: 600px;
+  background-color: ghostwhite;
+  text-align: center;
+  color : black;
+  font-size : 13px;
+}
+
+</style>
 
 <body>
 
 <div class="footer-div" id="footer-div" style="width: 100%; height: 70px;">
   <div class="links" style="text-align: center; padding: 15px;">
     <span>TEL : 02-717-5196</span>
-    <div style="text-align: center;">주소 : 서울특별시 마포구 독막로 275 (대흥동 445) 광성벤쳐프라자 6 </div>
+    주소 : 서울특별시 마포구 독막로 275 (대흥동 445) 광성벤쳐프라자 6 </>
   </div>
 </div>
 

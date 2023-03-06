@@ -83,16 +83,6 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public boolean isPasswordCheck(String userId, String userPwd) {
-        return false;
-    }
-
-    @Override
-    public void updatePwd(Member dto) throws Exception {
-
-    }
-
-    @Override
     public List<Member> memberList() {
         return memberMapper.memberList();
     }
