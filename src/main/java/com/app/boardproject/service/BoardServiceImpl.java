@@ -2,6 +2,7 @@ package com.app.boardproject.service;
 
 import com.app.boardproject.domain.Board;
 import com.app.boardproject.mapper.BoardMapper;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,34 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private BoardMapper boardMapper;
+    private SqlSession sqlSession;
+    private BoardService boardService;
+
 
     @Override
     public void insertBoard(Board dto) throws Exception {
         try {
             boardMapper.insertBoard(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public void updateBoard(Board dto) throws Exception {
+        try {
+            boardMapper.updateBoard(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public void deleteBoard(Board dto) throws Exception {
+        try {
+            boardMapper.deleteBoard(dto);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -32,7 +56,17 @@ public class BoardServiceImpl implements BoardService {
             throw e;
         }
         return boardMapper.dataCount(map);
+    }
+
+    @Override
+    public void updateHitCount(long num) throws Exception {
+        try {
+            boardMapper.updateHitCount(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
+    }
     @Override
     public List<Board> BoardList() throws Exception {
         try {
@@ -45,56 +79,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board readBoard(long num){
-            try {
-                boardMapper.readBoard(num);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw e;
-            }
-            return boardMapper.readBoard(num);
-        }
-
-    @Override
-    public void updateHitCount(Board dto) throws Exception {
+    public Board readBoard(long num) {
         try {
-            boardMapper.updateHitCount(dto);
-        } catch (Exception e){
+            boardMapper.readBoard(num);
+        } catch (Exception e) {
+            e.printStackTrace();
             throw e;
         }
-
+        return boardMapper.readBoard(num);
     }
 
-    @Override
-    public void preReadBoard(Map<String, Object> map) {
-
-    }
-
-    @Override
-    public void nextReadBoard(Map<String, Object> map) {
-
-    }
-
-    @Override
-    public void insertBoardLike(Map<String, Object> map) throws Exception {
-        try {
-        } catch (Exception e){
-            throw e;
-        }
-    }
-    @Override
-    public void deleteBoardLike(Map<String, Object> map) throws Exception {
-
-    }
-
-    @Override
-    public int BoardLikeCount(long num) {
-        return 2;
-        // 수정해
-    }
-
-    @Override
-    public boolean userBoardLiked(Map<String, Object> map) {
-        return false;
-    }
 }

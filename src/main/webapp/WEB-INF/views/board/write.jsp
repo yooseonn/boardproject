@@ -138,26 +138,7 @@ function deleteFile(fileNum) {
 						 <textarea name="content" class="form-control"> </textarea>
 						</td>
 					</tr>
-					<tr>
-						<th scope="row">첨부파일</th>
-						<td>
-							<input type="file" name="selectFile" multiple="multiple">
-						</td>
 					</tr>
-
-					<c:if test="${mode=='update'}">
-						<c:forEach var="vo" items="${listFile}">
-							<tr id="f${vo.fileNum}">
-								<td class="table-light col-sm-2" scope="row">첨부된파일</td>
-								<td>
-									<p class="form-control-plaintext">
-										<a href="javascript:deleteFile('${vo.fileNum}');"><i class="bi bi-trash"></i></a>
-										${vo.originalFilename}
-									</p>
-								</td>
-							</tr>
-						</c:forEach>
-					</c:if>
 				</tbody>
 			</table>
 			<br>

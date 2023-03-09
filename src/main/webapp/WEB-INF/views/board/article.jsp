@@ -5,6 +5,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -73,7 +74,8 @@
 </style>
 
 <script type="text/javascript">
-<c:if test="${sessionScope.loginMembermember.userId==dto.userId}">
+<c:if test="${sessionScope.loginMember.userId==dto.userId}">
+
 function deleteOk(num) {
     if(confirm("글을 삭제 하시겠습니까 ? ")) {
     	let query = "num="+num+"&page=${page}";
@@ -111,94 +113,6 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 
-$(function(){
-	$(".btnSendReply").click(function(){
-		let num = "${dto.num}";
-		const $tb = $(this).closest("table");
-		let content = $tb.find("textarea").val().trim();
-		if(! content) {
-			$tb.find("textarea").focus();
-			return false;
-		}
-		content = encodeURIComponent(content);
-
-		let url = "${pageContext.request.contextPath}/board/insertReply";
-		let query = "num="+num+"&content="+content;
-
-		const fn = function(data){
-			$tb.find("textarea").val("");
-
-			let state = data.state;
-			if(state === "true") {
-				listPage(1);
-			} else if(state === "false") {
-				alert("댓글을 추가 하지 못했습니다.");
-			}
-		};
-
-		ajaxFun(url, "post", query, "json", fn);
-	});
-});
-//댓글 삭제
-$(function(){
-	$("body").on("click", "#deleteReply", function(){
-		if(! confirm("게시물을 삭제하시겠습니까 ? ")) {
-		    return false;
-		}
-
-		let replyNum = $(this).attr("data-replyNum");
-		let page = $(this).attr("data-pageNo");
-
-		let url = "${pageContext.request.contextPath}/board/deleteReply";
-		let query = "replyNum=" + replyNum + "&mode=reply";
-
-		const fn = function(data){
-			// let state = data.state;
-			listPage(page);
-		};
-
-		ajaxFun(url, "post", query, "json", fn);
-	});
-});
-// 게시글 공감 여부
-$(function(){
-	$(".btnSendBoardlLike").click(function(){
-		if(!'${sessionScope.loginMember.userId}') {
-			alert("공감은 회원만 가능합니다.");
-			return false;
-		}
-
-		let color = "";
-		const $i = $(this).find("i");
-		let like = $i.hasClass("bi-heart-fill");
-
-		let url = "${pageContext.request.contextPath}/board/insertBoardLike";
-		let num = "${dto.num}";
-		let query = "num=" + num + "&like=" + like;
-
-		const fn = function(data){
-			let state = data.state;
-			if(state === "true") {
-				if( like ) {
-					$i.removeClass("bi-heart-fill").addClass("bi-heart");
-					color = "#A3A6AD";
-				} else {
-					$i.removeClass("bi-heart").addClass("bi-heart-fill");
-					color = "#FF4F99";
-				}
-				$i.css("color", color);
-				let count = data.boardlikeCount;
-				$("#BoardLikeCount").text(count);
-			} else if(state === "liked") {
-				alert("좋아요는 한 번만 가능합니다");
-			} else if(state === "false") {
-				alert("공감 여부 처리가 실패했습니다.");
-			}
-		};
-
-		ajaxFun(url, "post", query, "json", fn);
-	});
-});
 </script>
 
 <div class="container">

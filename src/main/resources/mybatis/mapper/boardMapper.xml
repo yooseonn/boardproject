@@ -21,12 +21,25 @@
     </select>
 
     <!-- 조회수 증가 -->
-    <update id="updateHitCount" parameterType="com.app.boardproject.domain.Board">
+    <update id="updateHitCount" parameterType="Long">
         UPDATE Board SET hitCount=hitCount+1 WHERE num = #{num}
     </update>
 
    <select id="dataCount" resultType="int" parameterType="hashMap">
        SELECT IFNULL(COUNT(*),0)  FROM board b Join member m ON b.userId = m.userId
    </select>
+
+    <!-- 수정 -->
+    <update id="updateBoard" parameterType="com.app.boardproject.domain.Board">
+        UPDATE board SET subject=#{subject}, content=#{content}
+        WHERE num=#{num}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="deleteBoard" parameterType="com.app.boardproject.domain.Board">
+        DELETE FROM board WHERE num=#{num}
+    </delete>
+
+
 
 </mapper>

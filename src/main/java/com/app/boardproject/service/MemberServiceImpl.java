@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.Map;
+
 @Service
 public class MemberServiceImpl implements MemberService {
     @Autowired
@@ -47,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 
             }
             int n = memberMapper.updateMember(dto);
-            System.out.println(n+"n");
+            System.out.println(n + "n");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,13 +70,14 @@ public class MemberServiceImpl implements MemberService {
         Member loginMember = memberMapper.login(dto);
 
         if (loginMember != null) {
-            session.setAttribute("loginMember",loginMember);
+            session.setAttribute("loginMember", loginMember);
             return true;
         } else {
-        return false;
+            return false;
+        }
+
     }
 
-}
     @Override
     public Member readMember(String userId) {
         return memberMapper.selectOne(userId);
@@ -87,15 +89,6 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.memberList();
     }
 
-    @Override
-    public <T> T selectOne(String userId, Object value) throws Exception {
-        List<T> list = null;
 
-        return null;
-    }
 
-    @Override
-    public <T> T selectOne(String userId) throws Exception {
-        return null;
-    }
 }

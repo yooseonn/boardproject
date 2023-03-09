@@ -19,9 +19,6 @@ public interface MemberService {
 
     public List<Member> memberList();
 
-    public <T> T selectOne (String userId,Object value) throws Exception;
-    public <T> T selectOne (String userId) throws Exception;
-
 }
 
 

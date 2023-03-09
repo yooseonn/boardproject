@@ -2,6 +2,7 @@ package com.app.boardproject.controller;
 
 import com.app.boardproject.domain.Member;
 import com.app.boardproject.service.MemberService;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class MemberController {
     @Autowired
     private MemberService service;
+    private SqlSession sqlSession;
 
     @RequestMapping(value = "member", method = RequestMethod.GET)
     public String memberForm(Model model) {
